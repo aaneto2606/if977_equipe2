@@ -1,0 +1,31 @@
+<h2> Essa reclamacao tem <%= pluralize(@comments.count, "comentarios") %> </h2>
+<p> Comentarios: </p>
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="0"></th>
+            <th scope="col"> Usuario </th>
+            <th scope="col"> Comentario </th>
+            <th scope="col"> Data </th>
+            <th scope="col"> Opcoes </th>
+        </tr>
+    </thead>
+    <tbody>
+<% @comments.each do |comment| %>
+    <tr>
+        <th colspan="0" scope="row"></th>
+        <td><b><%= comment.user.email %></b></td>
+        <td><%= comment.content %></td>
+        <td><%= comment.created_at %></td>
+        <td class="row">
+        <% if current_user == comment.user %>
+            <div class="col-md-3"><%= link_to 'Editar', edit_complaint_comment_path(comment.complaint, comment), class: 'btn btn-warning' %> &nbsp;</div>
+        <% elsif current_user == comment.user or current_user == @complaint.user %>
+            <div class="col-md-3"><%= button_to 'Deletar', [comment.complaint, comment], method: :delete, class: 'btn btn-danger'%></div>
+        <% end %>        
+        </td>
+    </tr>
+<% end %>
+    </tbody>
+</table>
+<%= render 'comments/form' %>

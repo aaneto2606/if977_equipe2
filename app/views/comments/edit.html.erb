@@ -1,6 +1,8 @@
-<h1>Editing Comment</h1>
-
-<%= render 'form', comment: @comment %>
-
-<%= link_to 'Show', @comment %> |
-<%= link_to 'Back', comments_path %>
+<%= form_for([@complaint, @comment]) do |f| %>
+    <hr>
+    <div class="form-group shadow-textarea">
+        <%= f.text_area :content, class: 'form-control', id: 'comment_area', rows: '3', placeholder: 'Escreva seu comentario...' %>
+    </div>
+    <br>
+    <%= f.submit 'Comentar', class: 'btn btn-primary' %>
+<% end %>
